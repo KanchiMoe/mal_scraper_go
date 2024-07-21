@@ -2,7 +2,7 @@ package company_xpaths
 
 import "github.com/rs/zerolog/log"
 
-func Validate_company_totals(expected_total int,
+func validate_company_totals(expected_total int,
 	tv int,
 	ona int,
 	ova int,
