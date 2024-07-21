@@ -1,4 +1,4 @@
-package xpaths
+package company_xpaths
 
 import (
 	"strings"
@@ -14,7 +14,7 @@ import (
 
 const NUMBER_REGEX string = `\((\d+)\)`
 
-func company_anime_buttons_totals(anime_buttons_node *html.Node) (totals_int int, err error) {
+func Company_anime_buttons_totals(anime_buttons_node *html.Node) (totals_int int, err error) {
 	const total_xpath string = "/li[1]"
 	totals_node, err := htmlquery.Query(anime_buttons_node, total_xpath)
 	if err != nil {
