@@ -1,4 +1,4 @@
-package pagerequestor
+package page_requestor
 
 import (
 	"errors"

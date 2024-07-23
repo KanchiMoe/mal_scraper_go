@@ -1,4 +1,4 @@
-package xpaths
+package xpaths_users
 
 import (
 	"strings"
@@ -10,7 +10,7 @@ import (
 
 // When given a url like https://myanimelist.net/comments.php?id=1234567
 // this will return the MAL username for that ID
-func Xpath_username_from_userpage_comments(html_node *html.Node) (username string, err error) {
+func Username_from_user_comments_page(html_node *html.Node) (username string, err error) {
 	log.Trace().Msg("Processing xpath from userpage comments")
 	const username_xpath string = "/html/body/div[1]/div[2]/div[3]/div[1]/h1"
 	const suffix string = "'s Comments"

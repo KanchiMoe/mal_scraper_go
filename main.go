@@ -8,16 +8,10 @@ import (
 )
 
 func main() {
-	project_config()
 	err := project_init.Init_main()
 	if err != nil {
 		log.Panic().Err(err).Msg("Error initialising project")
 	}
 
-	fmt.Println("dssfg")
-
-}
-
-func project_config() {
-
+	fmt.Println("end")
 }
