@@ -26,7 +26,7 @@ func Username_from_user_comments_page(html_node *html.Node) (username string, er
 
 	// remove "'s comments" from the username string
 	username = strings.TrimSuffix(username_innter_text, suffix)
-	log.Debug().Str("username", username).Msg("Returning username")
+	log.Debug().Str("username", username).Msg("Returning username from xpaths")
 
 	return username, nil
 }
