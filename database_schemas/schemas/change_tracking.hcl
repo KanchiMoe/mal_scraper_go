@@ -1,4 +1,4 @@
-table "username_changes" {
+table "change_tracking" {
     schema = schema.public
 
     column "uuid" {
