@@ -9,6 +9,10 @@ table "users" {
       type = text
       null = false
     }
+    column "last_interacted" {
+        type = timestamptz
+        null = false
+    }   
     primary_key {
         columns = [
             column.id
