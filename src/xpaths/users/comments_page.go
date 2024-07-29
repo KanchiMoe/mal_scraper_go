@@ -12,6 +12,7 @@ import (
 // this will return the MAL username for that ID
 func Username_from_user_comments_page(html_node *html.Node) (username string, err error) {
 	log.Trace().Msg("Processing xpath from userpage comments")
+
 	const username_xpath string = "/html/body/div[1]/div[2]/div[3]/div[1]/h1"
 	const suffix string = "'s Comments"
 
@@ -23,6 +24,13 @@ func Username_from_user_comments_page(html_node *html.Node) (username string, er
 
 	// get username header string
 	username_innter_text := htmlquery.InnerText(username_node)
+
+	// check if user has deleted account
+	if username_innter_text == "404 Not Found" {
+		username = "[Deleted]"
+		log.Debug().Str("username", username).Msg("User account has been deleted.")
+		return username, nil
+	}
 
 	// remove "'s comments" from the username string
 	username = strings.TrimSuffix(username_innter_text, suffix)
