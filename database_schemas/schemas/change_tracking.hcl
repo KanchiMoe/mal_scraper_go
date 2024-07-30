@@ -6,7 +6,7 @@ table "change_tracking" {
         null = false
     }
     column "timestamp" {
-        type = uuid
+        type = timestamptz
         null = false
     }
     column "category" {
