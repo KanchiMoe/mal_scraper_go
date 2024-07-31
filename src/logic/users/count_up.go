@@ -111,7 +111,7 @@ func check_if_username_is_in_db(db_connection *pgxpool.Pool, from_mal project_st
 
 		} else if id_from_username_data.Id != from_mal.Id {
 			log.Warn().Int("db", id_from_username_data.Id).Int("mal", from_mal.Id).Msg("The ID from DB does not match MAL")
-			err := ids_dont_match_update_them(db_connection, id_from_username_data.Id)
+			err := ids_dont_match_update_them(db_connection, id_from_username_data.Id, id_from_username_data.Username)
 			if err != nil {
 				return err
 			}
@@ -144,14 +144,14 @@ func check_if_id_is_in_db(db_connection *pgxpool.Pool, from_mal project_structs.
 		} else if username_from_id_data.Username != from_mal.Username {
 			fmt.Println("USERNAME DOES NOT MATCH DB. update needed")
 			log.Warn().Str("mal", from_mal.Username).Str("db", username_from_id_data.Username).Msg("Username from DB does not match MAL")
-			sql_users.Update_username_from_id(db_connection, from_mal.Username, username_from_id_data.Id)
+			sql_users.Update_username_from_id(db_connection, from_mal.Username, username_from_id_data.Id, username_from_id_data.Username)
 		}
 
 	}
 	return err
 }
 
-func ids_dont_match_update_them(db_connection *pgxpool.Pool, id int) (err error) {
+func ids_dont_match_update_them(db_connection *pgxpool.Pool, id int, old_username string) (err error) {
 	log.Info().Int("id", id).Msg("Getting data to update username for")
 
 	// construct url
@@ -171,7 +171,7 @@ func ids_dont_match_update_them(db_connection *pgxpool.Pool, id int) (err error)
 		return err
 	}
 
-	err = sql_users.Update_username_from_id(db_connection, xpaths_username, id)
+	err = sql_users.Update_username_from_id(db_connection, xpaths_username, id, old_username)
 	if err != nil {
 		return err
 	}
