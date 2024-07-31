@@ -1,4 +1,4 @@
-table "username_changes" {
+table "change_tracking" {
     schema = schema.public
 
     column "uuid" {
@@ -6,7 +6,7 @@ table "username_changes" {
         null = false
     }
     column "timestamp" {
-        type = uuid
+        type = timestamptz
         null = false
     }
     column "category" {
