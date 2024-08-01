@@ -92,8 +92,14 @@ func Add_user_id_to_db(db_connection *pgxpool.Pool, id int, username string) (er
 func Update_username_from_id(db_connection *pgxpool.Pool, new_username string, id int, old_username string) (err error) {
 	log.Trace().Int("id", id).Str("username", new_username).Msg("SQL: update username")
 
+	timestamp, err := src.Generate_timestamp()
+	if err != nil {
+		log.Error().Err(err).Str("location", "sql/users").Msg("Error passing to timestamp")
+		return err
+	}
+
 	// query
-	var sql_query string = "UPDATE users SET username = $1 WHERE id = $2;"
+	var sql_query string = "UPDATE users SET username = $1, last_interacted = $3 WHERE id = $2;"
 
 	// safeguard: check to make sure username is not just "[Deleted]"
 	if new_username == "[Deleted]" {
@@ -103,9 +109,9 @@ func Update_username_from_id(db_connection *pgxpool.Pool, new_username string, i
 	}
 
 	// query results
-	_, err = db_connection.Exec(context.Background(), sql_query, new_username, id)
+	_, err = db_connection.Exec(context.Background(), sql_query, new_username, id, timestamp)
 	if err != nil {
-		return nil
+		return err
 
 	} else {
 		log.Info().Str("new", new_username).Int("id", id).Msg("Username updated")
