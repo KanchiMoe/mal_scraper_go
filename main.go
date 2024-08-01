@@ -14,7 +14,7 @@ func main() {
 		log.Panic().Err(err).Msg("Error initialising project")
 	}
 
-	logic_users.Count_up_1000(7354862)
+	logic_users.Count_up_1000(0)
 
 	fmt.Println("end")
 }
