@@ -1,6 +1,7 @@
 package xpaths_users
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/antchfx/htmlquery"
@@ -34,6 +35,33 @@ func Username_from_user_comments_page(html_node *html.Node) (username string, er
 
 	// remove "'s comments" from the username string
 	username = strings.TrimSuffix(username_innter_text, suffix)
+
+	// check if username is MALnewbie
+	if username == "MALnewbie" {
+		const profile_link_xpath string = "html/body/div[1]/div[2]/div[3]/div[2]/div[1]/div[1]/a"
+
+		// find the link to the profile page
+		profile_link_node, err := htmlquery.Query(html_node, profile_link_xpath)
+		if err != nil {
+			log.Error().Err(err).Str("location", "xpath/users").Msg("Error getting profile link xpath")
+		}
+
+		// extract the profile link
+		profile_link := htmlquery.SelectAttr(profile_link_node, "href")
+
+		// Extract everything after "profile/"
+		const profile_prefix string = "/profile/"
+		profile_id := strings.TrimPrefix(profile_link, profile_prefix)
+		fmt.Println(profile_id)
+
+		// reconstruct username
+		username = username + "-" + profile_id
+		log.Debug().Str("username", username).Msg("Newbie user account")
+
+		return username, err
+
+	}
+
 	log.Debug().Str("username", username).Msg("Returning username from xpaths")
 
 	return username, nil
