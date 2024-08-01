@@ -30,7 +30,7 @@ func Count_up_1000(start_id int) (err error) {
 
 	// calculate upper values
 	var id_1000_up int = start_id + 1000
-	var current_id int = start_id + 1
+	var current_id int = start_id
 
 	for current_id <= id_1000_up {
 		// assign current id to comparison struct
@@ -65,7 +65,7 @@ func Count_up_1000(start_id int) (err error) {
 		checks(db_connection, from_mal)
 
 		current_id++
-		time.Sleep(1 * time.Second)
+		time.Sleep(2 * time.Second)
 
 	}
 
