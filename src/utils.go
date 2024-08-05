@@ -7,6 +7,8 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+// A utility function that will generate a UUID string. UUIDs are used a lot in SQL queries, so rather than repeatdly
+// use type this code, this function serves as a way to generate a UUID by calling it when needed.
 func Generate_uuid() (generated_uuid string) {
 	generated_uuid = uuid.New().String()
 	log.Trace().Str("uuid", generated_uuid).Msg("Created UUID")
