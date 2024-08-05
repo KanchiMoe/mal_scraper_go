@@ -20,9 +20,9 @@ func mal_client() (mal_client *http.Client) {
 
 func (the_current_struct transport_struct) RoundTrip(http_request *http.Request) (response *http.Response, err error) {
 	const sleep_period time.Duration = 60 * time.Second
-	var max_attempts int = 10
+	const max_attempts int = 10
 
-	for range max_attempts {
+	for attempt := range max_attempts {
 		response, err = the_current_struct.func_wrapper.RoundTrip(http_request)
 		if err != nil {
 			log.Error().Err(err).Msg("Can't get the page")
@@ -35,10 +35,10 @@ func (the_current_struct transport_struct) RoundTrip(http_request *http.Request)
 		if code == 200 || code == 404 {
 			return response, nil
 		} else if code == 405 {
-			log.Error().Msg("405")
+			log.Warn().Int("http code", code).Msg("We're being rate limited.")
 		}
 
-		log.Info().Str("curation", sleep_period.String()).Msg("Sleeping")
+		log.Info().Str("duration", sleep_period.String()).Int("attempt", attempt).Msg("Sleeping")
 		time.Sleep(sleep_period)
 	}
 
