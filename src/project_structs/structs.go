@@ -10,3 +10,9 @@ type Username_and_id struct {
 	Username string
 	In_db    bool
 }
+
+type Genre_xpath struct {
+	Name        string
+	Count       int
+	Description string
+}
