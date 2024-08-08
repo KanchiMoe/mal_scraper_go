@@ -13,3 +13,7 @@ const PROFILE_URL string = "profile/" // https://myanimelist.net/profile/Name
 // thingy urls
 const REPORT_SLUG string = "modules.php?go=report&type=profile&id=" // root + this + user id
 const COMMENTS_SLUG string = "comments.php?id="                     // root + this + userid
+
+// regex
+// Number in brackets. Example: (123)
+const REGEX_INT_IN_BRACKETS string = `\((\d+)\)`
