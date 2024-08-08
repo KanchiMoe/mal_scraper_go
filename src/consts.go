@@ -17,3 +17,6 @@ const COMMENTS_SLUG string = "comments.php?id="                     // root + th
 // regex
 // Number in brackets. Example: (123)
 const REGEX_INT_IN_BRACKETS string = `\((\d+)\)`
+
+// logging
+const SEPARATOR_LINE string = "...................................................................................................."
